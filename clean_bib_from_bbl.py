@@ -26,7 +26,7 @@ with open("clean.bib", "w") as out:
             elif abstract and "\t" in line and " = {" in line:
                 abstract = False
                 out.write(line)
-            elif not abstract and "keywords" not in line:
+            elif not abstract and "keywords" not in line and "urldate" not in line:
                 out.write(line)
         elif "@" in line[0]:
             if line.strip().split("{")[1].replace(",","") in good:
