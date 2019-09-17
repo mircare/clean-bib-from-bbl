@@ -9,6 +9,8 @@ with open(sys.argv[1], "r") as bbl:
     for line in bbl:
         if "\\bibitem{" in line:
             good.append(line.replace("\\bibitem{","").replace("}","").strip())
+        elif "}]{" in line:
+            good.append(line.split("}]{")[1].replace("}\n",""))
 
 bib = open(sys.argv[2], "r")
 with open("clean.bib", "w") as out:
@@ -24,7 +26,7 @@ with open("clean.bib", "w") as out:
             elif abstract and "\t" in line and " = {" in line:
                 abstract = False
                 out.write(line)
-            elif not abstract:
+            elif not abstract and "keywords" not in line:
                 out.write(line)
         elif "@" in line[0]:
             if line.strip().split("{")[1].replace(",","") in good:
