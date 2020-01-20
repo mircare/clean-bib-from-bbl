@@ -11,6 +11,8 @@ with open(sys.argv[1], "r") as bbl:
             good.append(line.replace("\\bibitem{","").replace("}","").strip())
         elif "}]{" in line:
             good.append(line.split("}]{")[1].replace("}\n",""))
+        elif "]{" in line:
+            good.append(line.split("]{")[1].replace("}\n",""))
 
 bib = open(sys.argv[2], "r")
 with open("clean.bib", "w") as out:
